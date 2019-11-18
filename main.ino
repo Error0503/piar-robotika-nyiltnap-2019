@@ -31,11 +31,17 @@ void loop() {
 }
 
 void UserInput() {
-  int selected = 0;
-  
+  int selected = 3;
   do {
-    if (digitalRead(1button) ==  HIGH) {
-      //placeholder beacuse why not
+    if (digitalRead(1button) ==  HIGH & boxes[0] > 0 & (selected == 0 || selected == 3)) {
+      boxes[0]--;
+      selected = 0;
+    } else if (digitalRead(2button) == HIGH & boxes[1] > 0 & (selected == 1 || selected == 3)) {
+      boxes[1]--;
+      selected = 1;
+    } else if (digitalRead(3button) == HIGH & boxes[2] > 0 & (selected == 2 || selected == 3)) {
+      boxes[2]--;
+      selected = 2;
     }
   } while (digitalRead(okButton) == HIGH);
   
