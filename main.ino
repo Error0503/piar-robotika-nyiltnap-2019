@@ -2,19 +2,26 @@
 #define 2button 2
 #define 3button 3
 #define okButton 4
-int boxes [3] = [4, 5, 5];
+int boxes [4] = [4, 5, 5, 4];
 bool is_player_turn = false;
 randomSeed(2);
 
 void AI (){
+  bool léptem = false;
   // nim összeg
   int n = table[0] ^ table[1] ^ table[2];
   // valid lépés keresése
   if (n != 0){
-    for(int i = 0; 
-   for    
+    for(int i = 0; boxes.length <= i; i ++;)
+    {
+     // lépés megtalálása és meglépése
+     if (boxes[i] ^ n < n && léptem == false){
+      boxes[i] -= n; 
+     }
+    }
+   
   }else{
-    boxes[random(0,3)]--;
+    boxes[random(0,4)]--;
   }
 }
 void setup() 
@@ -31,17 +38,11 @@ void loop() {
 }
 
 void UserInput() {
-  int selected = 3;
+  int selected = 0;
+  
   do {
-    if (digitalRead(1button) ==  HIGH & boxes[0] > 0 & (selected == 0 || selected == 3)) {
-      boxes[0]--;
-      selected = 0;
-    } else if (digitalRead(2button) == HIGH & boxes[1] > 0 & (selected == 1 || selected == 3)) {
-      boxes[1]--;
-      selected = 1;
-    } else if (digitalRead(3button) == HIGH & boxes[2] > 0 & (selected == 2 || selected == 3)) {
-      boxes[2]--;
-      selected = 2;
+    if (digitalRead(1button) ==  HIGH) {
+      //placeholder beacuse why not
     }
   } while (digitalRead(okButton) == HIGH);
   
