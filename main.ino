@@ -2,19 +2,26 @@
 #define 2button 2
 #define 3button 3
 #define okButton 4
-int boxes [3] = [4, 5, 5];
+int boxes [4] = [4, 5, 5, 4];
 bool is_player_turn = false;
 randomSeed(2);
 
 void AI (){
+  bool léptem = false;
   // nim összeg
   int n = table[0] ^ table[1] ^ table[2];
   // valid lépés keresése
   if (n != 0){
-    for(int i = 0; 
-   for    
+    for(int i = 0; boxes.length <= i; i ++;)
+    {
+     // lépés megtalálása és meglépése
+     if (boxes[i] ^ n < n && léptem == false){
+      boxes[i] -= n; 
+     }
+    }
+   
   }else{
-    boxes[random(0,3)]--;
+    boxes[random(0,4)]--;
   }
 }
 void setup() 
