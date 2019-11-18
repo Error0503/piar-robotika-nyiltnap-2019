@@ -7,7 +7,7 @@ bool is_player_turn = false;
 randomSeed(2);
 
 void AI (){
-  bool léptem = false;
+  bool leptem = false;
   // nim összeg
   int n = table[0] ^ table[1] ^ table[2];
   // valid lépés keresése
@@ -15,8 +15,10 @@ void AI (){
     for(int i = 0; boxes.length <= i; i ++;)
     {
      // lépés megtalálása és meglépése
-     if (boxes[i] ^ n < n && léptem == false){
+     if (boxes[i] ^ n < n && leptem == false){
       boxes[i] -= n; 
+       // lépés befejezése
+       leptem = true;
      }
     }
    
