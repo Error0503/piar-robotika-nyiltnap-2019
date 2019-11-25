@@ -6,7 +6,6 @@
 
 int boxes[4] = [ 4, 5, 5, 4 ];
 bool is_player_turn = false;
-randomSeed(analogRead(A0));
 
 void AI()
 {
@@ -31,11 +30,15 @@ void AI()
       }
     }
   }
-  else
+ else
   {
-    //olyanból is ki tud vonni, amiben nincs
-    boxes[random(0, 4)]--;
-  }
+	// kivon egyet egy nemnulla értékű dobozból egyet
+	for (i = 0; i < 4; i++){
+		if (boxes[i] != 0 && lpetem == false){
+			boxes[i]--;
+			leptem = true;
+		}
+	}
 }
 void setup()
 {
