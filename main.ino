@@ -1,57 +1,80 @@
-#define 1button 1
-#define 2button 2
-#define 3button 3
-#define okButton 4
-int boxes [4] = [4, 5, 5, 4];
-bool is_player_turn = false;
-randomSeed(2);
+#define button1 1
+#define button2 2
+#define button3 3
+#define button4 4
+#define okButton 5
 
-void AI (){
+int boxes[4] = [ 4, 5, 5, 4 ];
+bool is_player_turn = false;
+randomSeed(analogRead(A0));
+
+void AI()
+{
+  int i, n = 0;
   bool leptem = false;
   // nim összeg
-  int n = table[0] ^ table[1] ^ table[2];
+  for (i = 0; i < 4; i++)
+  {
+    n = n ^ boxes[i];
+  }
   // valid lépés keresése
-  if (n != 0){
-    for(int i = 0; boxes.length <= i; i ++;)
+  if (n != 0)
+  {
+    for (i = 0; i < sizeof(boxes)/sizeof(int); i++)
     {
-     // lépés megtalálása és meglépése
-     if (boxes[i] ^ n < n && leptem == false){
-      boxes[i] -= n; 
-       // lépés befejezése
-       leptem = true;
-     }
+      // lépés megtalálása és meglépése
+      if ((boxes[i] ^ n) < n && (leptem == false))
+      {
+        boxes[i] -= n;
+        // lépés befejezése
+        leptem = true;
+      }
     }
-   
-  }else{
-    boxes[random(0,4)]--;
+  }
+  else
+  {
+    //olyanból is ki tud vonni, amiben nincs
+    boxes[random(0, 4)]--;
   }
 }
-void setup() 
-  pinMode(1button, INPUT);
-  pinMode(2button, INPUT);
-  pinMode(3button, INPUT);
+void setup()
+{
+  pinMode(button1, INPUT);
+  pinMode(button2, INPUT);
+  pinMode(button3, INPUT);
+  pinMode(button4, INPUT);
   pinMode(okButton, INPUT);
-  
 }
 
-void loop() {
+void loop()
+{
   // put your main code here, to run repeatedly:
-
 }
 
-void UserInput() {
-  int selected = 3;
-  do {
-    if (digitalRead(1button) ==  HIGH & boxes[0] > 0 & (selected == 0 || selected == 3)) {
+void UserInput()
+{
+  int selected = 4;
+  do
+  {
+    if (digitalRead(button1) == HIGH & boxes[0] > 0 & (selected == 0 || selected == 4))
+    {
       boxes[0]--;
       selected = 0;
-    } else if (digitalRead(2button) == HIGH & boxes[1] > 0 & (selected == 1 || selected == 3)) {
+    }
+    else if (digitalRead(button2) == HIGH & boxes[1] > 0 & (selected == 1 || selected == 4))
+    {
       boxes[1]--;
       selected = 1;
-    } else if (digitalRead(3button) == HIGH & boxes[2] > 0 & (selected == 2 || selected == 3)) {
+    }
+    else if (digitalRead(button3) == HIGH & boxes[2] > 0 & (selected == 2 || selected == 4))
+    {
       boxes[2]--;
       selected = 2;
     }
-  } while (digitalRead(okButton) == HIGH);
-  
+    else if (digitalRead(button4) == HIGH & boxes[3] > 0 & (selected == 3 || selected == 4))
+    {
+      boxes[3]--;
+      selected = 3;
+    }
+  } while (digitalRead(okButton) == LOW);
 }
