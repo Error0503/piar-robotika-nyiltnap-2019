@@ -6,42 +6,38 @@ int boxes [4] = [4, 5, 5, 4];
 bool is_player_turn = false;
 randomSeed(2);
 
-void AI (){
+void AI () {
   bool leptem = false;
   // nim összeg
-  int n = table[0] ^ table[1] ^ table[2];
+  int n = table[0] ^ table[1] ^ table[2]; // Nem boxes?
   // valid lépés keresése
-  if (n != 0){
-    for(int i = 0; boxes.length <= i; i ++;)
-    {
+  if (n != 0) {
+    for(int i = 0; boxes.length <= i; i ++;) {
      // lépés megtalálása és meglépése
-     if (boxes[i] ^ n < n && leptem == false){
-      boxes[i] -= n; 
-       // lépés befejezése
-       leptem = true;
-     }
+      if (boxes[i] ^ n < n && leptem == false) {
+        boxes[i] -= n; 
+        // lépés befejezése
+        leptem = true;
+      }
     }
-   
-  }else{
+  } else {
     boxes[random(0,4)]--;
   }
 }
-void setup() 
+void setup() {
   pinMode(1button, INPUT);
   pinMode(2button, INPUT);
   pinMode(3button, INPUT);
   pinMode(okButton, INPUT);
-  
+  // Lépések ismétlésben
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-
-}
+void loop() {}
 
 void UserInput() {
   int selected = 3;
   do {
+    // Melyik gombot nyomjuk & Van még kő a dobozban & ???
     if (digitalRead(1button) ==  HIGH & boxes[0] > 0 & (selected == 0 || selected == 3)) {
       boxes[0]--;
       selected = 0;
@@ -52,6 +48,5 @@ void UserInput() {
       boxes[2]--;
       selected = 2;
     }
-  } while (digitalRead(okButton) == HIGH);
-  
+  } while (digitalRead(okButton) == HIGH); // Ok megnyomásáig
 }
