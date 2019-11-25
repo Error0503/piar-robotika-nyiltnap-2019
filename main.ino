@@ -47,6 +47,17 @@ void setup()
   pinMode(button3, INPUT);
   pinMode(button4, INPUT);
   pinMode(okButton, INPUT);
+  pinMode(pin3, OUTPUT);     
+  pinMode(pin4, OUTPUT);     
+  pinMode(pin5, OUTPUT);     
+  pinMode(pin6, OUTPUT);     
+  pinMode(pin7, OUTPUT);     
+  pinMode(pin8, OUTPUT);     
+  pinMode(pin9, OUTPUT);   
+  pinMode(D1, OUTPUT);  
+  pinMode(D2, OUTPUT);  
+  pinMode(D3, OUTPUT);  
+  pinMode(D4, OUTPUT);
 }
 
 void loop()
@@ -80,4 +91,30 @@ void UserInput()
       selected = 3;
     }
   } while (digitalRead(okButton) == LOW);
+}
+void display(){
+	int x 
+	int pin2 = 2;
+	int pin3 = 3;
+	int pin4 = 4;
+	int pin5 = 5;
+	int pin6 = 6;
+	int pin7 = 7;
+	int pin8 = 8;
+	int D1 = 9;
+	int D2 = 10;
+	int D3 = 11;
+	int D4 = 12;
+	
+	int numbers [9][7] = {{0,1,1,0,0,0,0}, {1,1,0,1,1,0,1}, {1,1,1,1,0,0,1}, {0,1,1,0,0,1,1}, {1,0,1,1,0,1,0}, {1,0,1,1,1,1,1}, {1,1,1,0,0,0,0}, {1,1,1,1,1,1,1,1}, {1,1,1,1,0,1,1}}
+
+		for(i=0; i==boxes[x]; i++){
+			if(boxes[x][i]){
+				digitalWrite(boxes[x][i], HIGH);
+			}
+			else{ 	
+				digitalWrite(boxes[x][i], LOW);
+			}		
+		}
+
 }
