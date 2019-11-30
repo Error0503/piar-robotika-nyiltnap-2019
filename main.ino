@@ -5,7 +5,8 @@
 #define button4 A2
 #define okButton A1
 
-int boxes[4] = {1, 0, 1, 1};
+
+int boxes[4] = {random(6, 10), random(6, 10), random(6, 10), random(6, 10)};
 bool leptem = false;
 
 void (*resetFunc)(void) = 0;
@@ -59,6 +60,13 @@ void writeWinner(int winner) //ez valamiért nem működik még
 
 void setup()
 {
+  randomSeed(analogRead(0));
+
+
+     boxes[0] = random(6, 10);
+     boxes[1] = random(6, 10);
+     boxes[2] = random(6, 10);
+     boxes[3] = random(6, 10);
 
   Serial.begin(9600);
   int i;
@@ -137,7 +145,7 @@ void comp()
   }
 
   else
-  {
+  {0
     for (i = 0; i < 4; i++)
     {
       if (boxes[i] >= boxes[maxs])
@@ -193,25 +201,25 @@ void UserInput()
   do
   {
     display();
-    if (digitalRead(button1) == HIGH && boxes[0] > 0 && (selected == 0 || selected == 4))
+    if (digitalRead(button4) == HIGH && boxes[0] > 0 && (selected == 0 || selected == 4))
     {
       boxes[0]--;
       selected = 0;
       delay(500);
     }
-    else if (digitalRead(button2) == HIGH && boxes[1] > 0 && (selected == 1 || selected == 4))
+    else if (digitalRead(button3) == HIGH && boxes[1] > 0 && (selected == 1 || selected == 4))
     {
       boxes[1]--;
       selected = 1;
       delay(500);
     }
-    else if (digitalRead(button3) == HIGH && boxes[2] > 0 && (selected == 2 || selected == 4))
+    else if (digitalRead(button2) == HIGH && boxes[2] > 0 && (selected == 2 || selected == 4))
     {
       boxes[2]--;
       selected = 2;
       delay(500);
     }
-    else if (digitalRead(button4) == HIGH && boxes[3] > 0 && (selected == 3 || selected == 4))
+    else if (digitalRead(button1) == HIGH && boxes[3] > 0 && (selected == 3 || selected == 4))
     {
       boxes[3]--;
       selected = 3;
