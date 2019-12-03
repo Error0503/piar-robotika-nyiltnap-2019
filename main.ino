@@ -10,9 +10,18 @@ bool leptem = false;
 
 void (*resetFunc)(void) = 0;
 
+void randomFill(void)
+{
+  int i = 0;
+  randomSeed(analogRead(A0));
+  for (; i < 4; i++)
+  {
+    boxes[i] = random(1, 10);
+  }
+}
+
 void writeWinner(int winner) //ez valamiért nem működik még
 {
-  delay(1000);
   int i, j;
   int letters1[3][7] = {
       {1, 0, 0, 1, 1, 1, 0},  // C betű
@@ -27,39 +36,52 @@ void writeWinner(int winner) //ez valamiért nem működik még
   {
     digitalWrite(i, LOW);
   }
-  do
+  for (i = 9; i < 13; i++)
   {
-    if (winner = 1)
+    digitalWrite(i, HIGH);
+  }
+
+  if (winner)
+  {
+    while (!digitalRead(okButton) && !digitalRead(button1) && !digitalRead(button2) && !digitalRead(button3) && !digitalRead(button4))
     {
-      for (i = 10; i < 13; i++)
+      for (i = 0; i < 3; i++)
       {
-        digitalWrite(i, LOW);
-        for (j = 2; i < 9; j++)
+        digitalWrite(i + 9, LOW);
+        for (j = 0; j < 7; j++)
         {
-          digitalWrite(j, letters1[i - 10][j - 2]);
-          delay(1);
+          digitalWrite(j + 2, letters2[i][j]);
         }
-        digitalWrite(i, HIGH);
+
+        delayMicroseconds(1000);
+        digitalWrite(i + 9, HIGH);
       }
     }
-    else
+  }
+  if (winner == 0)
+  {
+    while (!digitalRead(okButton) && !digitalRead(button1) && !digitalRead(button2) && !digitalRead(button3) && !digitalRead(button4))
     {
-      for (i = 10; i < 13; i++)
+      digitalWrite(13, HIGH);
+      for (i = 0; i < 3; i++)
       {
-        for (j = 2; i < 9; j++)
+        digitalWrite(i + 9, LOW);
+        for (j = 0; j < 7; j++)
         {
-          digitalWrite(j, letters2[i - 10][j - 2]);
-          delay(1);
+          digitalWrite(j + 2, letters1[i][j]);
         }
+
+        delayMicroseconds(1000);
+        digitalWrite(i + 9, HIGH);
       }
     }
-  } while (!digitalRead(okButton) || !digitalRead(button1) || !digitalRead(button2) || !digitalRead(button3) || !digitalRead(button4));
+  }
   resetFunc();
 }
 
 void setup()
 {
-
+  randomFill();
   Serial.begin(9600);
   int i;
   Serial.println("Setup begin.");
@@ -96,6 +118,11 @@ void loop()
   else
   {
     writeWinner(0);
+  }
+  sum = 0;
+   for (int i = 0; i < 4; i++)
+  {
+    sum += boxes[i];
   }
   if (sum != 0)
   {
