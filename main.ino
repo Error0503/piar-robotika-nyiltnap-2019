@@ -193,7 +193,7 @@ void AI()
       // lépés megtalálása és meglépése
       if ((boxes[i] ^ n) < n && (leptem == false))
       {
-        boxes[i] -= n;
+        boxes[i] = boxes[i] ^ n;
         Serial.println(boxes[i]);
         // lépés befejezése
         leptem = true;
